@@ -161,10 +161,10 @@ To run PHPCS, use the following command:
 docker-compose exec php vendor/bin/phpcs
 ```
 
-## Run Application
-To run the application so as to test on postman, run the command below to run the laravel application:
+## Run Application on your web browser
+Once the containers are running, you can access your Symfony application in your web browser.
 ```sh 
-php artisan serve --port=8008
+http://localhost:8080/
 ```
 Note: you can make use of your defined port number, not necessary you use this port number.
 
