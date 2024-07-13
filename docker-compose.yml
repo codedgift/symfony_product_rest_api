@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: php
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - .:/var/www
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0.38
+    platform: linux/amd64
+    container_name: mysql
+    restart: unless-stopped
+    tty: true
+    environment:
+      MYSQL_DATABASE: symfony
+      MYSQL_ROOT_PASSWORD: root
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+    driver: local
