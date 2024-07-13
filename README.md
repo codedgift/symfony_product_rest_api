@@ -14,27 +14,82 @@ This project is a Symfony-based REST API for managing products. The architecture
 
 ## Installation and Setup Process
 
+### Pulling from Git Repository?
+
+Follow the steps below
+
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/codedgift/symfony_product_rest_api.git
    cd products_rest_api
+   ```
+   
+2. **Create DOT ENV file**:
+   
+   in the root directory run the command below
+   ```sh
+   touch .env
+   ```
+   
+3. **Setup Database**:
+   ```sh
+   DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?charset=utf8"
+   ```
+4. **Build and start the Docker containers:**
+   ```bash
+   docker-compose up --build
+   ```
 
-2. **Extract the zip file**:
+5. **Install Composer dependencies:**
+    ```bash
+   docker-compose exec php composer install
+
+6. **Run database migrations:**
+    ```bash
+   docker-compose exec php php bin/console doctrine:migrations:migrate
+   ```
+
+7. **Configure JWT Bundle**:
+   ```bash
+   docker-composer exec php php bin/console lexik:jwt:generate-keypair
+   ```
+   
+### Extracting from the zip file?
+
+Follow the steps below
+
+1. **Extract the zip file**:
    ```bash
     cd products_rest_api
+   ```
    
+2. **Setup Database**:
+   ```sh
+   DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?charset=utf8"
+   ```
 3. **Build and start the Docker containers:**
-    ```bash
+   ```bash
    docker-compose up --build
-   
+   ```
 4. **Install Composer dependencies:**
     ```bash
    docker-compose exec php composer install
-   
+
 5. **Run database migrations:**
     ```bash
    docker-compose exec php php bin/console doctrine:migrations:migrate
+   ```
+   
+6. **Configure JWT Bundle**:
+   ```bash
+   docker-composer exec php php bin/console lexik:jwt:generate-keypair
+   ```
 
+## Run Application on your web browser
+Once the containers are running, you can access your Symfony application in your web browser.
+```sh 
+http://localhost:8080/
+```
 
 ## API Documentation
 ### Endpoints
@@ -161,11 +216,6 @@ To run PHPCS, use the following command:
 docker-compose exec php vendor/bin/phpcs
 ```
 
-## Run Application on your web browser
-Once the containers are running, you can access your Symfony application in your web browser.
-```sh 
-http://localhost:8080/
-```
 Note: you can make use of your defined port number, not necessary you use this port number.
 
 Made with ❤️ by Gift Amah
