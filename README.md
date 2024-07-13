@@ -16,7 +16,7 @@ This project is a Symfony-based REST API for managing products. The architecture
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-repo/products_rest_api.git
+   git clone https://github.com/codedgift/symfony_product_rest_api.git
    cd products_rest_api
 
 2. **Extract the zip file**:
